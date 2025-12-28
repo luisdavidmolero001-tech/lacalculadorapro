@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Puff Daddy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome (iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-calculator"></i>
+                <h1>Calculadora de Puff Daddy</h1>
+            </div>
+
+            <div class="theme-toggle">
+                <span>Modo claro</span>
+                <label class="switch">
+                    <!-- En JS se usa themeToggle (checkbox) -->
+                    <input type="checkbox" id="themeToggle" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </header>
+
+        <!-- Contenido principal -->
+        <main>
+            <!-- Calculadora -->
+            <section class="calculator">
+                <!-- Display -->
+                <div class="display-container">
+                    <!-- Historial pequeño arriba del display -->
+                    <div id="history" class="display-history"></div>
+                    <!-- Display principal, JS usa id="display" -->
+                    <input
+                        type="text"
+                        id="display"
+                        class="display"
+                        value="0"
+                        readonly
+                    />
+                </div>
+
+                <!-- Botones -->
+                <div class="buttons">
+                    <!-- Fila 1: funciones especiales / modo / borrar -->
+                    <div class="row">
+                        <button class="btn function" id="toggleMode">
+                            Modo Científico
+                        </button>
+                        <button class="btn function" data-action="clearEntry">
+                            CE
+                        </button>
+                        <button class="btn function" data-action="clear">
+                            C
+                        </button>
+                        <button class="btn operator" data-action="divide" data-value="/">
+                            ÷
+                        </button>
+                    </div>
+
+                    <!-- Fila 2 -->
+                    <div class="row">
+                        <button class="btn number" data-value="7">7</button>
+                        <button class="btn number" data-value="8">8</button>
+                        <button class="btn number" data-value="9">9</button>
+                        <button class="btn operator" data-action="multiply" data-value="*">
+                            ×
+                        </button>
+                    </div>
+
+                    <!-- Fila 3 -->
+                    <div class="row">
+                        <button class="btn number" data-value="4">4</button>
+                        <button class="btn number" data-value="5">5</button>
+                        <button class="btn number" data-value="6">6</button>
+                        <button class="btn operator" data-action="subtract" data-value="-">
+                            −
+                        </button>
+                    </div>
+
+                    <!-- Fila 4 -->
+                    <div class="row">
+                        <button class="btn number" data-value="1">1</button>
+                        <button class="btn number" data-value="2">2</button>
+                        <button class="btn number" data-value="3">3</button>
+                        <button class="btn operator" data-action="add" data-value="+">
+                            +
+                        </button>
+                    </div>
+
+                    <!-- Fila 5 -->
+                    <div class="row">
+                        <button class="btn function" data-action="percent">%</button>
+                        <button class="btn number" data-value="0">0</button>
+                        <button class="btn number" data-value=".">.</button>
+                        <button class="btn equals" data-action="equals">
+                            =
+                        </button>
+                    </div>
+
+                    <!-- Funciones científicas (se ocultan en modo básico) -->
+                    <div class="row special-functions" style="display: none;">
+                        <button class="btn function" data-action="sqrt">√x</button>
+                        <button class="btn function" data-action="square">x²</button>
+                        <button class="btn function" data-action="sin">sin</button>
+                        <button class="btn function" data-action="cos">cos</button>
+                        <button class="btn function" data-action="tan">tan</button>
+                        <button class="btn function" data-action="power">xʸ</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar: Memoria, Historial, Extras -->
+            <aside class="sidebar">
+                <!-- Memoria -->
+                <div class="memory-section">
+                    <h3>
+                        <i class="fa-solid fa-microchip"></i>
+                        Memoria
+                    </h3>
+
+                    <div class="memory-buttons">
+                        <button class="btn memory" id="memoryClear">MC</button>
+                        <button class="btn memory" id="memoryRecall">MR</button>
+                        <button class="btn memory" id="memoryAdd">M+</button>
+                        <button class="btn memory" id="memorySubtract">M-</button>
+                        <button class="btn memory" id="memoryStore">MS</button>
+                    </div>
+
+                    <div class="memory-display">
+                        <span>Valor en memoria:</span>
+                        <span id="memoryValue">0</span>
+                    </div>
+                </div>
+
+                <!-- Historial -->
+                <div class="history-section">
+                    <h3>
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        Historial
+                    </h3>
+
+                    <!-- JS usa id="historyList" -->
+                    <div id="historyList" class="history-list">
+                        <!-- Llenado dinámicamente -->
+                    </div>
+
+                    <button class="btn clear-history" id="clearHistory">
+                        Borrar historial
+                    </button>
+                </div>
+
+                <!-- Extra features -->
+                <div class="extra-features">
+                    <h3>
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        Extras
+                    </h3>
+
+                    <div class="feature-buttons">
+                        <button class="btn feature" id="copyResult">
+                            Copiar resultado
+                        </button>
+                        <button class="btn feature" id="randomNumber">
+                            Número aleatorio
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Calculadora de Puff Daddy - Proyecto educativo</p>
+            <div class="footer-icons">
+                <i class="fa-brands fa-github"></i>
+                <i class="fa-brands fa-js"></i>
+                <i class="fa-brands fa-css3-alt"></i>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script principal -->
+    <script src="script.js"></script>
+</body>
+</html>
